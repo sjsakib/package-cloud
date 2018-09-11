@@ -1,0 +1,12 @@
+#app {
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  color: #2c3e50;
+  display: flex;
+  min-height: 90vh;
+  justify-content: center;
+  text-align: center;
+}
+
+ul {
+  list-style-type: none;
+}

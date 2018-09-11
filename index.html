@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="css/main.css">
+    <title>package-cloud</title>
+  </head>
+  <body>
+    <noscript>
+      <strong>We're sorry but package-cloud doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
+    </noscript>
+    <div id="app">
+      <ul>
+        <h1>Package Cloud</h1>
+        <p>Create a word-cloud of the packages you've used in the open source JavaScript projects hosted in GitHub</p>
+        <input @change="handleSubmit"/>
+        <li v-for="m in messages">
+          {{ m }}
+        </li>
+      </ul>
+    </div>
+    <script type="text/javascript" src="js/main.js"></script>
+  </body>
+</html>
