@@ -21,6 +21,49 @@ ul {
   margin: 10px;
 }
 
-.package-input {
-  width: 50px;
+.message {
+  margin: 8px;
+}
+
+#cloud {
+  margin-top: 50px;
+}
+
+input {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  color: inherit;
+}
+
+input[type='number'] {
+  width: 65px;
+}
+
+button {
+  padding: 6px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: inherit;
+  background-color: white;
+  cursor: pointer;
+}
+
+.message-enter-active,
+.message-leave-active {
+  transition: all 1s;
+}
+.message-enter, .message-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateY(30px);
+}
+
+.package-enter-active,
+.package-leave-active {
+  transition: all 1s;
+}
+.package-enter, .package-leave-to /* .list-leave-active below version 2.1.8 */ {
+  opacity: 0;
+  transform: translateX(60px);
 }

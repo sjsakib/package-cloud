@@ -12,13 +12,21 @@ const app = new Vue({
   },
   methods: {
     handleSubmit,
-    drawCloud
+    drawCloud,
+    addPackage: function(e) {
+      Vue.set(this.packages, e.target.package.value, Number(e.target.count.value))
+      e.target.reset();
+    },
+    updatePackage: function(val, key) {
+      this.packages[key] = Number(val);
+    }
   }
 });
 
 async function handleSubmit(e) {
   const handle = e.target.value.trim();
 
+  this.finished = false;
   this.packages = {};
   this.messages = [];
   d3.select('#cloud').html(null);
@@ -67,22 +75,22 @@ async function handleSubmit(e) {
           class: 'success'
         });
       } catch (e) {
-        console.log(e);
         messages.push({
           text: `<i>packages.json</i> not found in <i>${r.name}</i>`,
           class: 'warning'
         });
       }
     }
+    // this.messages = [];
+    this.drawCloud();
   } catch (e) {
     messages[messages.length - 1].class = 'finished';
+    const message = e.text;
     messages.push({
-      text: `<b>${handle}</b> not found`,
+      text: `User with handle <b>${handle}</b> not found`,
       class: 'error'
     });
   }
-  this.messages = [];
-  this.drawCloud();
 }
 
 function drawCloud() {

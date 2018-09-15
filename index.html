@@ -7,6 +7,7 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <title>package-cloud</title>
   </head>
@@ -17,20 +18,25 @@
     <div id="app">
       <h1>Package Cloud</h1>
       <p>Create a word-cloud of the packages you've used in the open source JavaScript projects hosted in GitHub</p>
-      <input @change="handleSubmit"/>
+      <input @change="handleSubmit" placeholder="GitHub handle" />
       <div id="cloud"></div>
-      <ul>
-        <li v-for="m in messages">
-          <p :class="m.class" v-html="m.text"></p>
-        </li>
-      </ul>
-      <ul class="packages">
-        <li class="package" v-for="(val, key) in packages">
-          {{key}} <input class="package-input" type="number" v-model.number="packages[key]"/>
-        </li>
-      </ul>
-      <p v-if="finished">Scale Factor <input type="number" v-model.number="scaleFactor"></p>
       <button v-if="finished" @click="drawCloud">UPDATE</button>
+      <p v-if="finished">Scale Factor <input type="number" min="0" v-model.number="scaleFactor"></p>
+      <transition-group name="package" tag="ul" class="packages">
+        <li v-for="key in Object.keys(packages).sort((a,b) =>  packages[b]-packages[a])" v-bind:key="key" class="package" >
+          {{key}} <input class="package-input" type="number" min="0" :value="packages[key]" @change="e => updatePackage(e.target.value, key)"/>
+        </li>
+      </transition-group>
+      <form v-if="finished" @submit.prevent="addPackage">
+        <input type="text" name="package" placeholder="Package name">
+        <input type="number" name="count" placeholder="count">
+        <button type="submit">Add</button>
+      </form>
+      <transition-group name="message" tag="ul">
+        <li v-for="m in messages.slice(messages.length-100)" v-bind:key="m.text" class="message">
+          <span v-html="m.text"></span>
+        </li>
+      </transition-group>
     </div>
     <script type="text/javascript" src="js/main.js">vue</script>
   </body>
