@@ -4,6 +4,8 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <title>package-cloud</title>
@@ -13,15 +15,23 @@
       <strong>We're sorry but package-cloud doesn't work properly without JavaScript enabled. Please enable it to continue.</strong>
     </noscript>
     <div id="app">
+      <h1>Package Cloud</h1>
+      <p>Create a word-cloud of the packages you've used in the open source JavaScript projects hosted in GitHub</p>
+      <input @change="handleSubmit"/>
+      <div id="cloud"></div>
       <ul>
-        <h1>Package Cloud</h1>
-        <p>Create a word-cloud of the packages you've used in the open source JavaScript projects hosted in GitHub</p>
-        <input @change="handleSubmit"/>
         <li v-for="m in messages">
-          {{ m }}
+          <p :class="m.class" v-html="m.text"></p>
         </li>
       </ul>
+      <ul class="packages">
+        <li class="package" v-for="(val, key) in packages">
+          {{key}} <input class="package-input" type="number" v-model.number="packages[key]"/>
+        </li>
+      </ul>
+      <p v-if="finished">Scale Factor <input type="number" v-model.number="scaleFactor"></p>
+      <button v-if="finished" @click="drawCloud">UPDATE</button>
     </div>
-    <script type="text/javascript" src="js/main.js"></script>
+    <script type="text/javascript" src="js/main.js">vue</script>
   </body>
 </html>

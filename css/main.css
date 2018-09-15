@@ -2,11 +2,25 @@
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   color: #2c3e50;
   display: flex;
-  min-height: 90vh;
-  justify-content: center;
+  flex-direction: column;
+  align-items: center;
   text-align: center;
 }
 
 ul {
   list-style-type: none;
+}
+
+.packages {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.package {
+  margin: 10px;
+}
+
+.package-input {
+  width: 50px;
 }
