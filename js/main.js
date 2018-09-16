@@ -119,7 +119,7 @@ async function handleSubmit(e) {
         });
       }
     }
-    // this.messages = [];
+    this.messages = [];
     this.drawCloud();
   } catch (e) {
     messages[messages.length - 1].class = 'finished';
@@ -183,6 +183,15 @@ function drawCloud() {
         .text(function(d) {
           return d.text;
         });
+      d3
+        .select('#cloud > svg')
+        .append('text')
+        .attr('text-anchor', 'end')
+        .attr('x', 720)
+        .attr('y', 475)
+        .attr('fill', '#2c3e50')
+        .style('font-size', 10)
+        .html('https://sjsakib.github.io/package-cloud');
       this.finished = true;
     });
 

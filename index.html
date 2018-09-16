@@ -42,7 +42,13 @@
           <span :class="m.class" v-html="m.text"></span>
         </li>
       </transition-group>
+      <div v-if="finished">
+        <a class="github-button" href="https://github.com/sjsakib/package-cloud" data-size="large" data-show-count="true" aria-label="Star sjsakib/package-cloud on GitHub">Star</a>
+        <a class="github-button" href="https://github.com/sjsakib/package-cloud/fork" data-size="large" data-show-count="true" aria-label="Fork sjsakib/package-cloud on GitHub">Fork</a>
+        <a class="github-button" href="https://github.com/sjsakib" data-size="large" data-show-count="true" aria-label="Follow @sjsakib on GitHub">Follow @sjsakib</a>
+      </div>
     </div>
     <script type="text/javascript" src="js/main.js">vue</script>
+    <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>
