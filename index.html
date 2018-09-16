@@ -17,11 +17,16 @@
     </noscript>
     <div id="app">
       <h1>Package Cloud</h1>
-      <p>Create a word-cloud of the packages you've used in the open source JavaScript projects hosted in GitHub</p>
-      <input @change="handleSubmit" placeholder="GitHub handle" />
+      <p>Create a word-cloud of the packages you or somebody else has used in the open source JavaScript projects hosted in GitHub</p>
+      <input @change="handleSubmit" placeholder="GitHub username" />
       <div id="cloud"></div>
-      <button v-if="finished" @click="drawCloud">UPDATE</button>
+      <div v-if="finished">
+        <button @click="drawCloud">UPDATE</button>
+        <button @click="save('svg')">SAVE SVG</button>
+        <button @click="save('png')">SAVE PNG</button>
+      </div>
       <p v-if="finished">Scale Factor <input type="number" min="0" v-model.number="scaleFactor"></p>
+      <p v-if="finished">Try scale factor from 1 to 6 and update several times for the best looking cloud</p>
       <transition-group name="package" tag="ul" class="packages">
         <li v-for="key in Object.keys(packages).sort((a,b) =>  packages[b]-packages[a])" v-bind:key="key" class="package" >
           {{key}} <input class="package-input" type="number" min="0" :value="packages[key]" @change="e => updatePackage(e.target.value, key)"/>
@@ -30,11 +35,11 @@
       <form v-if="finished" @submit.prevent="addPackage">
         <input type="text" name="package" placeholder="Package name">
         <input type="number" name="count" placeholder="count">
-        <button type="submit">Add</button>
+        <button type="submit">ADD</button>
       </form>
       <transition-group name="message" tag="ul">
-        <li v-for="m in messages.slice(messages.length-100)" v-bind:key="m.text" class="message">
-          <span v-html="m.text"></span>
+        <li v-for="m in messages" v-bind:key="m.text" class="message">
+          <span :class="m.class" v-html="m.text"></span>
         </li>
       </transition-group>
     </div>

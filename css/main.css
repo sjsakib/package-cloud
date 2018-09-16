@@ -25,6 +25,10 @@ ul {
   margin: 8px;
 }
 
+.error {
+  color: red;
+}
+
 #cloud {
   margin-top: 50px;
 }

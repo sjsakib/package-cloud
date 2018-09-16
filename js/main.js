@@ -14,16 +14,54 @@ const app = new Vue({
     handleSubmit,
     drawCloud,
     addPackage: function(e) {
-      Vue.set(this.packages, e.target.package.value, Number(e.target.count.value))
+      Vue.set(
+        this.packages,
+        e.target.package.value,
+        Number(e.target.count.value)
+      );
       e.target.reset();
     },
     updatePackage: function(val, key) {
       this.packages[key] = Number(val);
+    },
+    save: function(format) {
+      const xml = new XMLSerializer().serializeToString(
+        document.querySelector('#cloud > svg')
+      );
+      const svg = new Blob([xml], {
+        type: 'image/svg+xml;charset=utf-8'
+      });
+      const url = URL.createObjectURL(svg);
+
+      if (format === 'svg') {
+        const dl = document.createElement('a');
+        dl.download = 'package-cloud.svg';
+        dl.href = url;
+        dl.click();
+        return;
+      }
+
+      const canvas = document.createElement('canvas');
+      canvas.width = 720;
+      canvas.height = 480;
+      const ctx = canvas.getContext('2d');
+
+      const img = document.createElement('img');
+      img.setAttribute('src', url);
+      img.onload = () => {
+        ctx.drawImage(img, 0, 0);
+
+        const dl = document.createElement('a');
+        dl.download = 'package-cloud.png';
+        dl.href = canvas.toDataURL('image/png');
+        dl.click();
+      };
     }
   }
 });
 
 async function handleSubmit(e) {
+  e.target.blur();
   const handle = e.target.value.trim();
 
   this.finished = false;
