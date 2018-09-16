@@ -77,10 +77,17 @@ async function handleSubmit(e) {
       text: `Loading ${handle}'s repositories....`,
       class: 'loading'
     });
-    const data = await (await fetch(
-      apiBaseURL + `/users/${handle}/repos`
-    )).json();
-    if (data.message) throw Error(data.message);
+    let data = [];
+    let pageNo = 1;
+    let page;
+    while (!page || page.length !== 0) {
+      page = await (await fetch(
+        apiBaseURL + `/users/${handle}/repos?page=${pageNo}`
+      )).json();
+      if (page.message) throw Error(page.message);
+      data = data.concat(page);
+      pageNo++;
+    }
     messages[messages.length - 1].class = 'success';
     messages.push({
       text: `Fetched list of ${data.length} repositories....`,
