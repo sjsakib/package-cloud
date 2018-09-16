@@ -60,9 +60,10 @@ const app = new Vue({
   },
   mounted: function() {
     const parts = window.location.href.split('#');
-    if(parts.length > 1) {
+    if (parts.length > 1) {
       const input = document.getElementById('handle');
-      input.value = handle;
+      input.value = parts[1];
+      this.handleSubmit({ target: input });
     }
   }
 });
@@ -70,6 +71,7 @@ const app = new Vue({
 async function handleSubmit(e) {
   e.target.blur();
   const handle = e.target.value.trim();
+  window.location.href = window.location.href.split('#')[0] + `#${handle}`
 
   this.finished = false;
   this.packages = {};
