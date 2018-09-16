@@ -67,7 +67,11 @@ button {
 .package-leave-active {
   transition: all 1s;
 }
-.package-enter, .package-leave-to /* .list-leave-active below version 2.1.8 */ {
+.package-enter, .package-leave-to {
   opacity: 0;
   transform: translateX(60px);
+}
+
+#github {
+  margin: 50px;
 }
