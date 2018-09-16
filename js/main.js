@@ -57,6 +57,13 @@ const app = new Vue({
         dl.click();
       };
     }
+  },
+  mounted: function() {
+    const parts = window.location.href.split('#');
+    if(parts.length > 1) {
+      const input = document.getElementById('handle');
+      input.value = handle;
+    }
   }
 });
 

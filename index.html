@@ -19,7 +19,7 @@
     <div id="app">
       <h1>Package Cloud</h1>
       <p>Create a word-cloud of the packages you or somebody else has used in the open source JavaScript projects hosted on GitHub</p>
-      <input @change="handleSubmit" placeholder="GitHub username" />
+      <input id="handle" @change="handleSubmit" placeholder="GitHub username" />
       <div id="cloud"></div>
       <div v-if="finished">
         <button @click="drawCloud">UPDATE</button>
