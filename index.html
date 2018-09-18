@@ -8,6 +8,7 @@
     <script src="https://d3js.org/d3.v5.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3-cloud/1.2.5/d3.layout.cloud.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="js/chat-scroll.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.5.2/animate.min.css">
     <link rel="stylesheet" type="text/css" href="css/main.css">
     <title>package-cloud</title>
@@ -20,15 +21,20 @@
       <h1>Package Cloud</h1>
       <p>Create a word-cloud of the packages you or somebody else has used in the open source JavaScript projects hosted on GitHub</p>
       <input id="handle" @change="handleSubmit" placeholder="GitHub username" />
+        <transition-group name="message" tag="ul" id="messages" v-if="!finished" v-chat-scroll>
+          <li v-for="m in messages" v-bind:key="m.text" class="message">
+            <span :class="m.class" v-html="m.text"></span>
+          </li>
+        </transition-group>
       <div id="cloud"></div>
+      <p v-if="finished">Scale Factor <input type="number" min="0" v-model.number="scaleFactor"></p>
       <div v-if="finished">
         <button @click="drawCloud">UPDATE</button>
         <button @click="save('svg')">SAVE SVG</button>
         <button @click="save('png')">SAVE PNG</button>
       </div>
-      <p v-if="finished">Scale Factor <input type="number" min="0" v-model.number="scaleFactor"></p>
       <p v-if="finished">Try scale factor from 1 to 6 and update several times for the best looking cloud</p>
-      <transition-group name="package" tag="ul" class="packages">
+      <transition-group v-if="finished" name="package" tag="ul" class="packages">
         <li v-for="key in Object.keys(packages).sort((a,b) =>  packages[b]-packages[a])" v-bind:key="key" class="package" >
           {{key}} <input class="package-input" type="number" min="0" :value="packages[key]" @change="e => updatePackage(e.target.value, key)"/>
         </li>
@@ -38,11 +44,6 @@
         <input type="number" name="count" placeholder="count">
         <button type="submit">ADD</button>
       </form>
-      <transition-group name="message" tag="ul">
-        <li v-for="m in messages" v-bind:key="m.text" class="message">
-          <span :class="m.class" v-html="m.text"></span>
-        </li>
-      </transition-group>
       <div id="github">
         <a class="github-button" href="https://github.com/sjsakib/package-cloud" data-size="large" data-show-count="true" data-icon="octicon-star" aria-label="Star sjsakib/package-cloud on GitHub">Star</a>
         <a class="github-button" href="https://github.com/sjsakib/package-cloud/fork" data-size="large" data-show-count="true" data-icon="octicon-repo-forked" aria-label="Fork sjsakib/package-cloud on GitHub">Fork</a>

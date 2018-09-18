@@ -9,6 +9,7 @@
 
 ul {
   list-style-type: none;
+  padding: 0;
 }
 
 .packages {
@@ -17,20 +18,12 @@ ul {
   justify-content: center;
 }
 
-.package {
-  margin: 10px;
-}
-
-.message {
-  margin: 8px;
-}
-
 .error {
   color: red;
 }
 
 #cloud {
-  margin-top: 50px;
+  margin-top: 20px;
 }
 
 input {
@@ -54,23 +47,38 @@ button {
   cursor: pointer;
 }
 
-.message-enter-active,
-.message-leave-active {
-  transition: all 1s;
-}
-.message-enter, .message-leave-to /* .list-leave-active below version 2.1.8 */ {
-  opacity: 0;
-  transform: translateY(30px);
+#messages {
+  max-height: 350px;
+  overflow-y: scroll;
 }
 
-.package-enter-active,
-.package-leave-active {
+.message {
+  margin: 8px;
+  transition: all .2s;
+}
+.message-enter {
+  opacity: 0;
+  transform: translateY(-15px);
+}
+.message-leave-to {
+  opacity: 0;
+  transform: translateY(15px);
+}
+.message-leave-active {
+  position: absolute;
+}
+
+
+.package {
+  margin: 10px;
   transition: all 1s;
 }
+
 .package-enter, .package-leave-to {
   opacity: 0;
   transform: translateX(60px);
 }
+
 
 #github {
   margin: 50px;

@@ -83,7 +83,7 @@ async function handleSubmit(e) {
 
   try {
     messages.push({
-      text: `Loading ${handle}'s repositories....`,
+      text: `Loading ${handle}'s repositories`,
       class: 'loading'
     });
     let data = [];
@@ -99,7 +99,7 @@ async function handleSubmit(e) {
     }
     messages[messages.length - 1].class = 'success';
     messages.push({
-      text: `Fetched list of ${data.length} repositories....`,
+      text: `Fetched list of ${data.length} repositories`,
       class: 'info'
     });
     for (let i = 0; i < data.length; i++) {
